@@ -1,0 +1,5 @@
+{%- if patch_set.author.email %}
+`{{ change.subject }}` proposed by `{{ patch_set.author.name }} <{{ patch_set.author.email }}>` at {{ change.url }} in project `{{ change.project }}` ({{ patch_set.inserts }}|{{ patch_set.deletes }}).
+{%- else %}
+`{{ change.subject }}` proposed by `{{ patch_set.author.name }}` at {{ change.url }} in project `{{ change.project }}` ({{ patch_set.inserts }}|{{ patch_set.deletes }}).
+{%- endif %}

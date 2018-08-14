@@ -1,0 +1,45 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ACTION REQUESTED: VMs Expiring in {{ to_shutdown }}
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Hello!
+
+Your lease(s) on the following OpenStack instance(s) are expiring soon.
+Please read on to find out what this means and what the next steps are
+for you.
+
+{% for server in servers %}
+  * {{ server.name }} [{{ server.id }}]
+{% endfor %}
+
+{{ to_shutdown }} from now, these instances will be
+turned off. {{ to_delete }} from then, these instances will be removed and
+the resources will be freed up for other projects.
+
+What's next?
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+ * If you don't need these instances anymore, please log in to the OpenStack
+   cloud and delete them.
+
+ * If you need them just a little longer, you'll have
+   another {{ to_shutdown }} to wrap up your work before the instances
+   are turned off.
+
+ * If you need these instances to become permanent, please create instances in
+   a project space (not your user-{{ user }} space).
+
+Why?
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+The instance(s) listed above are part of your user-{{ user }} space.
+This space is for temporary personal development. To ensure we maintain a clean
+environment with plenty of resources for everyone, instances in all user
+projects are set to expire after a certain amount of time. If you need a more
+permanent arrangement, please create instances in a project space.
+
+If you have any further questions, please let us know!
+
+Thank you,
+
+Cloud@

@@ -1,0 +1,215 @@
+# Channel that will be used for hello information, other errors that
+# are internally triggered and such...
+admin_channel: "team-openstack-eng"
+
+# Email used for git setup (not currently used elsewhere, yet) during
+# bootstrapping; username is extracted from this as well and also used
+# during git setup.
+admin_email: "nobody@nobody.com"
+
+# Owning group used during notifications (this one will always be cc'd if
+# it is non-empty).
+admin_owning_group: ""
+
+# Scheduler settings/paths...
+scheduler:
+    max_workers: 16
+
+# Run this often to try to detect + warn about the bot likely about to die.
+danger_period: "*/1 * * * *"
+
+# Various ansible things.
+ansible:
+    host_key_checking: true
+    inventories: {}
+    playbooks: {}
+
+# Keeping this as arizona since arizona has this nice ability to
+# not be messed with periodically by daylight savings time; which makes
+# things more sane just in general...
+tz: "US/Arizona"
+
+# Whether to show tracebacks in slack (when a work unit fails).
+include_tracebacks: true
+
+# Locations of classes or modules that are used for loading various
+# dynamic pieces of code used by other parts of the bot.
+plugins:
+    # The thing that will be used to load + return cloud topologies.
+    #
+    # If you leave this out, then the bot will not have a topo_loader and
+    # various handlers may be automatically disable due to that.
+    topo_loader_class: ""
+    # This will be used to find various environments to render and then
+    # generate ssh-keys for (if not provided then this will not happen).
+    env_fetcher_func: ""
+    # Modules that will be searched for non-abstract handler classes
+    # that will be consumed and loaded for handling various bot commands.
+    # In case if you have a particular implementation in a class the class can
+    # be directly provided here like in following example
+    #   handlers:
+    #       - padre.gd.handlers.PlaybookHandler
+    handlers:
+        - module: "padre.handlers"
+          recurse: true
+
+# Where periodic information will be output (if not set or empty
+# then `admin_channel` will be used instead).
+periodic_channel: "cloud-periodics"
+
+# Where various useful transient things may happen.
+working_dir: "/var/run/padre/"
+
+# Where the padre virtualenv is (must match the dockerfile install
+# location).
+venv_dir: "/opt/padre/venv/"
+
+# Where various useful persistent things may happen.
+persistent_working_dir: "/var/lib/padre/"
+
+# Where various env data comes from.
+env_dir: "/opt/padre/venv/etc/os_deploy/envs/"
+
+# Where the templated ansible.cfg should be written to (and where it comes
+# from); if either is empty or not provided then no ansible.cfg is written
+# out on bootstrap...
+ansible_config_path: "/etc/ansible/ansible.cfg"
+ansible_config_template_path: "/opt/padre/templates/ansible.cfg.j2"
+
+# Various templates (typically jinja2 based); first found wins.
+template_dirs:
+    - "/opt/padre/templates"
+
+# Static files (images, css...)
+statics_dir: "/opt/padre/static"
+
+# Max number of message handler (not sender) workers/threads
+#
+# Do note that there will be 3x this number (one set for primary messages,
+# one set for followup messages and one set for periodic scheduled things).
+max_workers: 16
+
+# Max number of children threads handling wsgi requests (per server).
+max_wsgi_workers: 8
+
+# Retain this many prior handlers for usage in the status api
+# to show the past runs; if a message with a kind is not found then
+# it will have no history...
+max_history:
+    gerrit: 16
+    github: 32
+    jira: 16
+    sensu: 128
+    slack: 512
+    telnet: 512
+
+# Ara is on/off?
+ara_enabled: false
+
+# Where the telnet server will be established on localhost (if this config
+# doesn't exist then no server is enabled...).
+telnet:
+    port: 2323
+
+# A function to call to build any extra clients; or none/empty to
+# not build any.
+client_builder_func: ""
+
+# Where the status endpoint will run at.
+status:
+    port: 80
+
+    # If enabled, then the hook receiver webserver will be exposed on
+    # 0.0.0.0 otherwise it will be exposed on localhost only.
+    exposed: true
+
+    ssl: false
+
+# Google calendars that will get setup at bot start time (and handlers
+# can then access at bot.calendars).
+calendars: {}
+
+# If this is set (and not empty); then git+gitreview will be setup.
+launchpad:
+    user: ""
+
+# Where the elastic endpoint is.
+elastic:
+    endpoint: {}
+
+# To simulate response typing, or not...
+typing:
+    # Normal humans type at like 200 characters per minute; but if we
+    # run at that rate, the bot takes forever to respond to things; so
+    # in order to actually send things back in like a short period this
+    # is used (even though its insanely fast); set this to less than
+    # or equal to zero to disable it.
+    chars_per_minute: 10000
+
+# Hostname where everything will be (or is running); if not provided
+# then it will be fetched from socket.gethostname() or if that fails
+# then this will fallback to netutils.get_my_ipv4() which will fallback
+# to 127.0.0.1 if nothing can be found.
+hostname: "localhost"
+
+# Used by the artifactory handler...
+artifactory: {}
+    # Put your artifactory base url here...
+    # base_url: "https://artifactory.XYZ.net/"
+
+# Various slack settings.
+slack:
+    # Make amount of seconds to backoff when sending to slack (if say slack
+    # is down).
+    max_backoff: 300
+
+    # Max number of attempts to send a message (if -1, the sending thread
+    # will attempt forever, ie until slack comes back up).
+    max_attempts: 10
+
+    # Timeout making api calls to slack.
+    timeout: 10
+
+    # These event types/from users/from bots are automatically
+    # skipped (because they are noisy and/or not used...)
+    skip_types:
+        - 'dnd_updated_user'
+        - 'im_created'
+        - 'presence_change'
+        - 'user_change'
+        - 'user_typing'
+        - 'team_join'
+    skip_users: []
+    skip_bots: true
+
+    # How often to ping slack (for liveness)
+    ping_period: "*/2 * * * *"
+
+    # Only used for url generation (not for connecting).
+    base_url: "http://YOUR.slack.com/"
+
+# Used for handler authorizations/restricting...
+#
+# Put your various settings in here so that handlers can call into
+# ldap to restrict things down.
+#
+# ldap:
+    # group_dn: ""
+    # service_user_dn: ""
+    # user_dn: ""
+
+# Where jenkins is and such.
+jenkins:
+    # Where your jenkins is located at...
+    # url: "https://jenkins.blahblah.blah.com/"
+
+    # How long we will wait (in seconds) for jenkins to respond.
+    timeout: 15
+    max_retries: 3
+    max_build_wait: 7200
+
+    # Jenkin jobs that will automatically be turned into commands, by
+    # calling jenkins up, finding the job and converting parameters defined
+    # in that job into actionable units that work inside this bot (just like
+    # magic).
+    jobs: {}

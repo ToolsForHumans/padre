@@ -1,0 +1,8 @@
+{{ subject }}
+```
+  successes  : {{ successes }}
+  failures   : {{ failures }}
+{% if exception is defined and exception %}
+  exception  : {{ exception }}
+{% endif %}
+```

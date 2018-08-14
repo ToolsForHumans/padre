@@ -1,0 +1,44 @@
+Notification of Hypervisor Maintenance
+
+WHO: OpenStack Engineering Team
+WHEN: {{ when.strftime('%Y-%m-%d %H:%M:%S') }} {{ when.tzname() }}
+{% if chg is defined %}
+WHAT: Hypervisor patching for Spectre/Meltdown on {{ hypervisor }} ({{ chg }})
+{% else %}
+WHAT: Hypervisor patching for Spectre/Meltdown on {{ hypervisor }}
+{% endif %}
+
+{% if vms %}
+The following VMs will experience downtime during this maintenance:
+
+Instance             Owner
+{% for vm in vms %}
+{{ "%-20s %s"|format(vm.id, vm.owner) }}
+{% endfor %}
+{% endif %}
+
+WHY: Security updates
+
+IMPACT: There will be an approximate 30 minute outage per hypervisor, as
+updates will require a reboot. This will also cause a reboot of any
+VMs on each hypervisor so plan accordingly.
+
+We are analyzing any potential performance impacts of updates
+for Spectre and meltdown.
+
+- https://spectreattack.com/ (for more details)
+
+The above hypervisors have been selected for testing to detect performance
+variations (if any), caused by the mitigations.
+
+No further action is required prior to maintenance. All VMs running on
+these hypervisors will be rebooted during maintenance.
+
+Please plan on notifying your customers of the outage.
+
+Thanks for your cooperation,
+
+If you have any additional questions/comments please feel free to ask
+on Slack #openstack (or #meltdown_spectre) channels,
+
+- OpenStack Team

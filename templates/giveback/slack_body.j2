@@ -1,0 +1,13 @@
+Hello!
+
+Your lease(s) on the following OpenStack instance(s) are expiring soon.
+
+{% for server in servers %}
+  * {{ server.name }} [{{ server.id }}]
+{% endfor %}
+
+In {{ to_shutdown }} from now, these instances will be turned off. Then in {{ to_delete }} from then, these instances will be deleted and the resources will be returned to your quota.
+
+Thank you,
+
+#cloud

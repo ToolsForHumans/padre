@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>
+{{ bot_app_name | title }} v{{ bot_app_version }} [{{ bot_name | default("???") | title }}]
+</title>
+</head>
+<body>
+<h2>Status</h2>
+<a href="status.json">status.json</a>
+<h2>Configuration</h2>
+<a href="config.json">config.json</a>
+<h2>Periodics</h2>
+<a href="periodics.json">periodics.json</a>
+{% if bot_config.log_file is defined %}
+<a href="logging.txt?all=1"><h2>Log</h2></a>
+<iframe src="logging.txt" height="200" width="1024"></iframe>
+{% endif %}
+{% if bot_config.slack and bot_config.slack.app_config_url %}
+<h2>Slack</h2>
+<a href="{{ bot_config.slack.app_config_url }}">app configuration</a>
+{% endif %}
+<h2>System</h2>
+<pre>{{ sys_table }}</pre>
+</body>
+<h2>Environment</h2>
+<pre>{{ env_table }}</pre>
+{% if threads %}
+<h2>Threads</h2>
+{% for t in threads %}
+<a name="thread_{{ t.id }}"></a>
+<h3>Thread #<a href="#thread_{{ t.id }}">{{ t.id }}</a></h3>
+<pre>
+{{ t.traceback }}
+</pre>
+{% endfor %}
+{% endif %}
+</body>
+</html>

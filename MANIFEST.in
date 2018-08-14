@@ -1,0 +1,7 @@
+prune scripts
+prune conf
+
+include ChangeLog
+include AUTHORS
+
+exclude .gitignore

@@ -1,0 +1,82 @@
+# This must be first.
+pbr
+
+# Used by the main program (and more!).
+six
+cachetools
+oslo.utils
+oslo.serialization
+futurist
+voluptuous
+munch
+pyyaml
+pytz
+tzlocal
+enum34
+pkginfo
+webob
+requests
+tenacity>=4.8.0
+importlib
+iso8601
+pyzmail
+apscheduler
+psutil
+
+# The bot's brain is using this.
+sqlitedict
+
+# Use for self-update checking/scanning and for repo cleaning...
+artifactory
+
+# Because the subprocess that is in 2.7 doesn't have
+# timeouts, but this one does!
+subprocess32
+
+# This is the version the slackclient is currently fixed at
+# but they don't list this version in there library, and it
+# appears to work the best so prefer it.
+websocket-client==0.35.0
+
+# For the backdoor mini-telnet server
+miniboa>=1.0.3
+
+# Client libraries
+tinyjenkins
+slackclient>=1.1.0
+pygithub
+GitPython
+paho-mqtt
+python-ldap
+jira
+os-client-config>=1.28.0
+shade>=1.25.0
+python-novaclient
+keystoneauth1
+pysnow
+google-api-python-client
+
+# Used for various commands
+tabulate
+
+# Used to make excel things
+openpyxl
+
+# Used for elastic handler
+elasticsearch>=5.0.0,<6.0.0
+elasticsearch-dsl>=5.0.0,<6.0.0
+
+# Used to give message -> command suggestions
+distance
+
+# Because we need to record things.
+ara>=0.15.0,<1.0
+pymysql
+
+# Ansible 2.4 or newer needed as we use things like `import_tasks` in plays
+ansible>=2.4.0.3
+
+# For various templating usage (after ansible since ansible will
+# typically also bring in a version of jinja that will work for it
+# and we can *usually* just piggyback on that).
+jinja2

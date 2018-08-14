@@ -1,0 +1,15 @@
+Your VM will be affected by the following service changed scheduled
+to start on {{ start_date.isoformat() }} and ending on {{ end_date.isoformat() }}.
+
+{{ task.co.short_description }}
+
+For tracking purposes please go to:
+- {{ task.co.number }} {{ task.co.get("human_link", "") }}
+- {{ task.ctask.number }} {{ task.ctask.get("human_link", "") }}
+
+Thanks for your cooperation,
+
+If you have any additional questions/comments please feel free to ask
+on Slack #openstack channels.
+
+- OpenStack Team

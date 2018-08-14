@@ -1,0 +1,13 @@
+Plan for execution against the following cloud:
+
+cloud: {{ cloud }}
+server_group: {{ server_group }}
+
+Plan Steps:
+{% for step in steps %}
+{{ step }}
+{% endfor %}
+
+{% if origin_link is defined and origin_link %}
+Originating request: {{ origin_link }}
+{% endif %}

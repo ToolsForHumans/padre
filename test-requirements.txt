@@ -1,0 +1,11 @@
+flake8
+bashate
+yamllint
+testtools
+pytest
+pytest-cov
+coverage
+hacking
+mock
+requests-mock
+tox

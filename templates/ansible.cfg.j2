@@ -1,0 +1,29 @@
+[defaults]
+nocows = 1
+host_key_checking = {{ ansible.host_key_checking | lower }}
+timeout = 15
+nocolor = 1
+
+{% if venv_dir is defined and ara_enabled %}
+callback_plugins = {{ venv_dir }}/lib/python2.7/site-packages/ara/plugins/callbacks
+action_plugins = {{ venv_dir }}/lib/python2.7/site-packages/ara/plugins/actions
+library = {{ venv_dir }}/lib/python2.7/site-packages/ara/plugins/modules:{{ venv_dir }}/etc/os_deploy/ansible/library
+{% endif %}
+
+{% if ara_enabled %}
+[ara]
+logdir = {{ working_dir}}/ara/
+logfile = ara.log
+loglevel = DEBUG
+result_per_page = 100
+sqlalchemy_pool_size = 10
+sqlalchemy_pool_timeout = 180
+sqlalchemy_pool_recycle = 300
+database = mysql+pymysql://{{ ara.database.user }}:{{ ara.database.password }}@{{ ara.database.host }}/{{ ara.database.name }}
+autocreate_database = false
+{% endif %}
+
+[ssh_connection]
+pipelining = true
+control_path = %(directory)s/%%h%%r
+ssh_args = -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ControlMaster=auto -o ControlPersist=1800s

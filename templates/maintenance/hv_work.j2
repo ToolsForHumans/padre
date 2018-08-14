@@ -1,0 +1,17 @@
+{{ subject }}
+WHO: OpenStack Engineering Team
+{% if chg is defined %}
+WHAT: {{ description }} on {{ hypervisor }} ({{ chg }})
+{% else %}
+WHAT: {{ description }} on {{ hypervisor }}
+{% endif %}
+WHEN: {{ when.strftime('%Y-%m-%d %H:%M:%S') }} {{ when.tzname() }}
+
+{% if vms %}
+The following VMs will experience downtime during this maintenance:
+
+Instance             Owner
+{% for vm in vms %}
+{{ "%-20s %s"|format(vm.id, vm.owner) }}
+{% endfor %}
+{% endif %}
