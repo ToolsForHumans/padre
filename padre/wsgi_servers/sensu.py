@@ -50,14 +50,14 @@ class HookApplication(object):
     def hook(self, req):
         req_meth = req.method
         if req_meth.lower() != "post":
-            LOG.warn("Received invalid sensu request"
-                     " type/http method (not a POST)")
+            LOG.warning("Received invalid sensu request"
+                        " type/http method (not a POST)")
             raise exc.HTTPBadRequest
         content_type = req.content_type
         content_type = content_type.lower()
         if content_type != 'application/json':
-            LOG.warn("Received invalid sensu content"
-                     " type %s (not application/json)", content_type)
+            LOG.warning("Received invalid sensu content"
+                        " type %s (not application/json)", content_type)
             raise exc.HTTPBadRequest
         try:
             data_len = int(req.content_length)
@@ -66,13 +66,13 @@ class HookApplication(object):
                     "Content length must be greater"
                     " than zero: got %s" % data_len)
         except ValueError:
-            LOG.warn("Could not extract request content length",
-                     exc_info=True)
+            LOG.warning("Could not extract request content length",
+                        exc_info=True)
             raise exc.HTTPBadRequest
         try:
             req_body = req.body_file.read(data_len)
         except IOError:
-            LOG.warn("Could not read full POST body", exc_info=True)
+            LOG.warning("Could not read full POST body", exc_info=True)
             raise exc.HTTPBadRequest
         secret = self.bot.config.sensu.hook.get('secret', '')
         req_headers = req.headers
@@ -81,13 +81,13 @@ class HookApplication(object):
                 wu.check_signature(req_headers.get('X-Padre-Signature'),
                                    req_body, secret)
         except (wu.NoSignature, wu.BadSignature):
-            LOG.warn(
+            LOG.warning(
                 "Received no/bad signature for"
                 " body '%s'; headers=%s", req_body,
                 req_headers, exc_info=True)
             raise exc.HTTPUnauthorized
         except wu.UnknownSignatureAlgorithm:
-            LOG.warn(
+            LOG.warning(
                 "Received unknown signature algorithm for"
                 " body '%s'; headers=%s", req_body, req_headers,
                 exc_info=True)
@@ -101,7 +101,7 @@ class HookApplication(object):
                     "Expected dict type, did not"
                     " get it: got %s instead" % type(req_body))
         except (ValueError, TypeError, UnicodeError):
-            LOG.warn(
+            LOG.warning(
                 "Received bad/invalid json"
                 " body '%s'", req_body, exc_info=True)
             raise exc.HTTPBadRequest
@@ -109,9 +109,9 @@ class HookApplication(object):
             try:
                 event_action = req_body['action']
             except KeyError:
-                LOG.warn("Received bad/invalid json"
-                         " event body '%s' (missing event 'action')",
-                         req_body, exc_info=True)
+                LOG.warning("Received bad/invalid json"
+                            " event body '%s' (missing event 'action')",
+                            req_body, exc_info=True)
                 raise exc.HTTPBadRequest
             if secret:
                 LOG.debug("Received validated"

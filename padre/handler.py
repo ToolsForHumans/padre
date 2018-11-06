@@ -136,9 +136,9 @@ class Handler(mixins.TemplateUser):
         try:
             cls_sec_conf = cls.fetch_secrets(bot, tolerant=False)
         except KeyError:
-            LOG.warn("%s has been disabled, missing required"
-                     " secret section '%s'",
-                     nice_cls_name, cls.secret_section)
+            LOG.warning("%s has been disabled, missing required"
+                        " secret section '%s'",
+                        nice_cls_name, cls.secret_section)
             return False
         if cls.config_on_off is not None:
             try:
