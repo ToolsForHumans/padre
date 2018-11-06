@@ -654,5 +654,7 @@ def render_template(contents, params,
     if variable_end_string:
         env_kwargs['variable_end_string'] = variable_end_string
     env = jinja2.Environment(**env_kwargs)
+    if isinstance(contents, six.binary_type):
+        contents = contents.decode('utf-8')
     tpl = env.from_string(contents)
     return tpl.render(**params)

@@ -6,8 +6,7 @@ import functools
 import logging
 import os
 import re
-import urlparse
-from UserString import MutableString
+from six.moves.urllib import parse as urlparse
 
 import git
 import munch
@@ -462,10 +461,11 @@ class SyncHandler(handler.TriggeredHandler):
             verb = 'are'
         else:
             adj = 'All of '
-            vars = MutableString(', '.join(errors))
+            vars = bytearray(b', '.join(errors))
             last_comma = vars.rfind(', ')
-            vars[last_comma:last_comma + 2] = ', and '
+            vars[last_comma:last_comma + 2] = b', and '
             verb = 'are'
+            vars = vars.decode('utf-8')
 
         return 'Error: {adj}{vars} {verb} required.'.format(
             adj=adj, vars=vars, verb=verb)

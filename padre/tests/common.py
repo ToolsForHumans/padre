@@ -3,6 +3,7 @@ import tempfile
 
 import mock
 import munch
+import six
 
 from padre import date_utils as du
 from padre import event as e

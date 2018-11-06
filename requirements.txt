@@ -17,9 +17,8 @@ pkginfo
 webob
 requests
 tenacity>=4.8.0
-importlib
+importlib; python_version < '3.0'
 iso8601
-pyzmail
 apscheduler
 psutil
 

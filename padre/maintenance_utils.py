@@ -2,7 +2,7 @@ import json
 import logging
 import pytz
 import re
-import urllib
+from six.moves.urllib import parse as urllib
 
 import enum
 import munch

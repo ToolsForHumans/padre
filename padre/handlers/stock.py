@@ -1,6 +1,6 @@
 import csv
 import logging
-import urllib
+from six.moves.urllib import parse as urllib
 
 import requests
 import six
@@ -81,7 +81,7 @@ class Handler(handler.TriggeredHandler):
             })
             resp = requests.get(url)
             resp.raise_for_status()
-            for row in csv.DictReader(six.StringIO(resp.content)):
+            for row in csv.DictReader(six.StringIO(resp.content.decode('utf-8'))):
                 rows.append([
                     row['symbol'],
                     row['price'],

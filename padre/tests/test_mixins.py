@@ -21,11 +21,11 @@ class TemplateUserTest(TestCase):
         self.template_dirs.append(tempfile.mkdtemp())
         with open(os.path.join(self.template_dirs[-1],
                                'blah.j2'), 'wb') as fh:
-            fh.write("{{ blah }}")
+            fh.write(b"{{ blah }}")
         self.template_dirs.append(tempfile.mkdtemp())
         with open(os.path.join(self.template_dirs[-1],
                                'bing.j2'), 'wb') as fh:
-            fh.write("{{ bing }}")
+            fh.write(b"{{ bing }}")
 
     def tearDown(self):
         super(TemplateUserTest, self).tearDown()

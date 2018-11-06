@@ -3,6 +3,7 @@ import logging
 import re
 
 import munch
+import six
 
 from webob import exc
 from webob import Request
@@ -92,7 +93,9 @@ class HookApplication(object):
                 exc_info=True)
             raise exc.HTTPBadRequest
         try:
-            req_body = json.loads(req_body.decode('utf-8'))
+            if isinstance(req_body, six.binary_type):
+                req_body = req_body.decode('utf-8')
+            req_body = json.loads(req_body)
             if not isinstance(req_body, dict):
                 raise TypeError(
                     "Expected dict type, did not"
