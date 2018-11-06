@@ -81,7 +81,8 @@ class Handler(handler.TriggeredHandler):
             })
             resp = requests.get(url)
             resp.raise_for_status()
-            for row in csv.DictReader(six.StringIO(resp.content.decode('utf-8'))):
+            for row in csv.DictReader(
+                    six.StringIO(resp.content.decode('utf-8'))):
                 rows.append([
                     row['symbol'],
                     row['price'],

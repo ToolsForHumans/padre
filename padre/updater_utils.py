@@ -73,7 +73,7 @@ def extract_changelog(path, reformat=True):
     lines = []
     if reformat:
         for line in tmp_lines:
-            line = line.replace("\_", "_")
+            line = line.replace("\\_", "_")
             if line.startswith("*"):
                 line = u"•" + line[1:]
             lines.append(line)

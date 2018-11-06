@@ -12,7 +12,6 @@ from padre import handler
 from padre import matchers
 from padre import schema_utils as su
 from padre import trigger
-from padre import utils
 
 LOG = logging.getLogger(__name__)
 
