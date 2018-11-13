@@ -9,14 +9,14 @@ if [ -z "${BOT}" ]; then
 fi
 
 if [ -z "${VIRTUAL_ENV}" ]; then
-    source "/opt/daddy/venv/bin/activate"
+    source "/opt/padre/venv/bin/activate"
 fi
 
 if [ "${BOT_PRODUCTION}" == "1" ]; then
-    bot_conf="-c /etc/daddy/base.yaml"
-    bot_conf="${bot_conf} -c /etc/daddy/secrets.yaml:DADDY_PASS"
-    bot_conf="${bot_conf} -c /etc/daddy/prod/:DADDY_PASS"
-    bot_conf="${bot_conf} -c /etc/daddy/${BOT}/:DADDY_PASS"
+    bot_conf="-c /etc/padre/base.yaml"
+    bot_conf="${bot_conf} -c /etc/padre/secrets.yaml:DADDY_PASS"
+    bot_conf="${bot_conf} -c /etc/padre/prod/:DADDY_PASS"
+    bot_conf="${bot_conf} -c /etc/padre/${BOT}/:DADDY_PASS"
 else
     bot_conf="-c $PWD/conf/base.yaml"
     bot_conf="${bot_conf} -c $PWD/conf/secrets.yaml:DADDY_PASS"
