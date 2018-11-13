@@ -8,7 +8,8 @@ from logging import config as logging_config
 import os
 import signal
 import sys
-import urlparse
+
+from six.moves import urllib
 
 import munch
 import pytz
@@ -122,7 +123,7 @@ def setup_ssh(config, secrets):
         scan_command = ['ssh-keyscan']
         # Use urlparse and fake an https address using the given host.
         # This works well with both hostnames and IPs (v4/v6), and ALSO ports.
-        parsed = urlparse.urlparse("https://{}".format(host))
+        parsed = urllib.parse("https://{}".format(host))
         if parsed.port:
             scan_command.extend(['-p', parsed.port])
         scan_command.append(parsed.hostname)
