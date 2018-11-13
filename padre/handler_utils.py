@@ -58,7 +58,11 @@ def sort_handlers(handlers):
                         "Duplicate trigger already registered to"
                         " handler '%s'" % reflection.get_class_name(e_h_cls))
                 triggers_to_handlers[t] = h_cls
-    triggers = sorted(triggers, cmp=_cmp_triggers)
+    if six.PY3:
+        key_func = functools.cmp_to_key(_cmp_triggers)
+        triggers = sorted(triggers, key=key_func)
+    else:
+        triggers = sorted(triggers, cmp=_cmp_triggers)
     # NOTE(harlowja): we need to ensure that triggers that share the same
     # prefix so that the longer prefix is first (so that it tries to be matched
     # before the smaller one).

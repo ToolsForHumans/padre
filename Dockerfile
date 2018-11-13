@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
                                       python3-setuptools \
                                       python-virtualenv \
                                       gcc \
+                                      git \
                                       libldap2-dev \
                                       libsasl2-dev \
                                       build-essential \
