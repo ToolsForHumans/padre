@@ -248,7 +248,7 @@ class StatusApplication(mixins.TemplateUser):
             'jobs': jobs,
             'scheduler_state': sched_state,
         }
-        resp.body = utils.dump_json(resp_body, pretty=True) + "\n"
+        resp.text = utils.dump_json(resp_body, pretty=True) + "\n"
         return resp
 
     @_check_accepts(['text/html', 'application/xhtml+xml',
@@ -281,7 +281,7 @@ class StatusApplication(mixins.TemplateUser):
         tmp_config = utils.mask_dict_password(tmp_config)
         resp_body = tmp_config
         resp_body = utils.dump_json(resp_body, pretty=True)
-        resp.body = resp_body + "\n"
+        resp.text = resp_body + "\n"
         return resp
 
     @_check_accepts(['application/json'])

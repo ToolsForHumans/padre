@@ -4,15 +4,8 @@ import re
 import enum
 import munch
 
-try:
-    from urllib import quote as url_quote
-except ImportError:
-    from urllib.parse import quote as url_quote
-
-try:
-    from urllib import urlencode as url_encode
-except ImportError:
-    from urllib.parse import urlencode as url_encode
+from six.moves.urllib.parse import quote as url_quote
+from six.moves.urllib.parse import urlencode as url_encode
 
 # Slack folks say to keep attachments to less than 20, so we'll
 # start splitting into more than one message at 20.
