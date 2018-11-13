@@ -592,7 +592,7 @@ class Bot(object):
     def _preprocess(self, message):
         from_who = message.body.get("user_id")
         if from_who:
-            from_who = utils.to_bytes("user:%s" % from_who)
+            from_who = "user:%s" % from_who
             try:
                 with self.locks.brain:
                     text_aliases = dict(self.brain[from_who]['aliases'])

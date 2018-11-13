@@ -2,7 +2,7 @@ import json
 import logging
 import pytz
 import re
-import urllib
+from six.moves.urllib import parse as urllib
 
 import enum
 import munch
@@ -50,7 +50,7 @@ def extract_server_owning_groups(servers):
         try:
             s_owner = s.metadata.owning_group
             # remove prefix numbers
-            s_owner = re.sub('^\d+\s+-\s', '', s_owner)
+            s_owner = re.sub(r'^\d+\s+-\s', '', s_owner)
         except AttributeError:
             pass
         if s_owner and s_owner not in groups:

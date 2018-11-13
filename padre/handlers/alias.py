@@ -12,7 +12,6 @@ from padre import handler
 from padre import matchers
 from padre import schema_utils as su
 from padre import trigger
-from padre import utils
 
 LOG = logging.getLogger(__name__)
 
@@ -35,7 +34,7 @@ class ClearHandler(handler.TriggeredHandler):
         from_who = self.message.body.user_id
         if not from_who:
             return
-        from_who = utils.to_bytes("user:%s" % from_who)
+        from_who = "user:%s" % from_who
         with self.bot.locks.brain:
             try:
                 user_info = self.bot.brain[from_who]
@@ -82,7 +81,7 @@ class RemoveHandler(handler.TriggeredHandler):
         from_who = self.message.body.user_id
         if not from_who:
             return
-        from_who = utils.to_bytes("user:%s" % from_who)
+        from_who = "user:%s" % from_who
         lines = []
         with self.bot.locks.brain:
             try:
@@ -139,7 +138,7 @@ class AddHandler(handler.TriggeredHandler):
         from_who = self.message.body.user_id
         if not from_who:
             return
-        from_who = utils.to_bytes("user:%s" % from_who)
+        from_who = "user:%s" % from_who
         with self.bot.locks.brain:
             try:
                 user_info = self.bot.brain[from_who]

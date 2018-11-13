@@ -84,7 +84,7 @@ class DumpHandler(handler.TriggeredHandler):
     def _fetch_known(self, real_user):
         user_memory = {}
         with self.bot.locks.brain:
-            alias_key = utils.to_bytes("user:%s" % real_user.id)
+            alias_key = "user:%s" % real_user.id
             try:
                 user_memory['aliases'] = dict(self.bot.brain[alias_key])
             except KeyError:

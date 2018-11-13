@@ -9,7 +9,7 @@ import socket
 import threading
 import traceback
 
-from miniboa import async
+from miniboa import async_boa
 from miniboa import telnet
 from miniboa import xterm
 
@@ -470,7 +470,7 @@ class Watcher(threading.Thread):
         pass
 
     def setup(self):
-        self._server = async.TelnetServer(
+        self._server = async_boa.TelnetServer(
             port=self.port, address=self.address,
             timeout=self.WAIT_TIMEOUT, on_connect=self._on_connect,
             on_disconnect=self._on_disconnect,

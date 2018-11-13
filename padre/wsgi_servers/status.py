@@ -351,7 +351,10 @@ class StatusApplication(mixins.TemplateUser):
                 tmp_c = c.name.lower()
                 resp_body['channel_stats'][tmp_c] = copy.deepcopy(c_stats)
         resp_body = utils.dump_json(resp_body, pretty=True)
-        resp.body = resp_body + "\n"
+        resp_text = resp_body + "\n"
+        if isinstance(resp_text, six.binary_type):
+            resp_text = resp_text.decode('utf-8')
+        resp.text = resp_text
         return resp
 
 
