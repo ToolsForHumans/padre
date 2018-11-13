@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
                                       wget
 
 RUN mkdir -p /opt/padre/
+RUN mkdir -p /opt/padre/static/
 RUN mkdir -p /etc/padre/prod/
 
 ARG PACKAGE_PATH
