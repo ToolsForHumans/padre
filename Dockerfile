@@ -23,6 +23,7 @@ ARG PACKAGE_NAME
 RUN virtualenv -p /usr/bin/python3 /opt/padre/venv/
 
 COPY requirements.txt /opt/padre/requirements.txt
+COPY templates/ /opt/padre/templates/
 COPY $PACKAGE_PATH /opt/padre/$PACKAGE_NAME
 COPY scripts/start.sh /opt/padre/start.sh
 
