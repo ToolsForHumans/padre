@@ -1,9 +1,11 @@
 import logging
 import re
-import urllib
 
 import enum
 import munch
+
+from six.moves.urllib.parse import quote as url_quote
+from six.moves.urllib.parse import urlencode as url_encode
 
 # Slack folks say to keep attachments to less than 20, so we'll
 # start splitting into more than one message at 20.
@@ -141,12 +143,12 @@ def insert_quick_link(message, slack_base_url=None):
         m_link = slack_base_url
         if not m_link.endswith("/"):
             m_link += "/"
-        m_link += "archives/%s/" % urllib.quote(message.body['channel'])
-        m_link += "p" + urllib.quote(message.body['ts'].replace(".", ""))
+        m_link += "archives/%s/" % url_quote(message.body['channel'])
+        m_link += "p" + url_quote(message.body['ts'].replace(".", ""))
         m_thread_ts = message.body.get('thread_ts')
         if m_thread_ts:
             m_link += "?"
-            m_link += urllib.urlencode({
+            m_link += url_encode({
                 'thread_ts': m_thread_ts,
             })
         message.body['quick_link'] = m_link

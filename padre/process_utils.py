@@ -122,8 +122,10 @@ def _run(command, timeout=0.1, on_timeout_callback=None, **kwargs):
             try:
                 if use_communicate:
                     stdout, stderr = sp.communicate(timeout=timeout)
-                    stderr_buf.write(stderr)
-                    stdout_buf.write(stdout)
+                    if stderr:
+                        stderr_buf.write(stderr)
+                    if stdout:
+                        stdout_buf.write(stdout)
                 else:
                     sp.wait(timeout=timeout)
             except subprocess32.TimeoutExpired:
