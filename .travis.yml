@@ -1,0 +1,13 @@
+language: python
+dist: xenial
+services:
+    - docker
+python:
+    - 3.6
+install:
+    - pip install -r requirements.txt -r test-requirements.txt
+    - pip install .
+script:
+    - docker-compose build
+    - pytest
+    - flake8

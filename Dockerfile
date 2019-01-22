@@ -18,10 +18,10 @@ RUN virtualenv -p /usr/bin/python3 /opt/padre/venv/
 
 ADD . /opt/padre
 
-RUN . /opt/padre/venv/bin/activate && pip install --no-cache-dir -r \
+RUN . /opt/padre/venv/bin/activate && pip install --cache-dir /tmp -r \
                                           /opt/padre/requirements.txt
 
-RUN . /opt/padre/venv/bin/activate && pip install --no-cache-dir /opt/padre/
+RUN . /opt/padre/venv/bin/activate && pip install --cache-dir /tmp /opt/padre/
 
 RUN . /opt/padre/venv/bin/activate && \
     cd /opt/padre/ && python \
@@ -53,12 +53,12 @@ RUN mkdir -p /etc/padre/prod/
 RUN virtualenv -p /usr/bin/python3 /opt/padre/venv/
 
 COPY --from=builder /opt/padre/*.tar.gz /opt/padre/
-RUN . /opt/padre/venv/bin/activate && pip install --no-cache-dir -r \
+RUN . /opt/padre/venv/bin/activate && pip install --cache-dir /opt/padre/cache -r \
                                           /opt/padre/requirements.txt
 COPY templates/ /opt/padre/templates/
 COPY scripts/start.sh /opt/padre/start.sh
 
-RUN /opt/padre/venv/bin/pip3 install --no-cache-dir /opt/padre/*.tar.gz
+RUN /opt/padre/venv/bin/pip3 install --cache-dir /opt/padre/cache /opt/padre/*.tar.gz
 
 WORKDIR /opt/padre
 CMD ["/opt/padre/start.sh"]
