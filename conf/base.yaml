@@ -117,7 +117,7 @@ client_builder_func: ""
 
 # Where the status endpoint will run at.
 status:
-    port: 80
+    port: 1080
 
     # If enabled, then the hook receiver webserver will be exposed on
     # 0.0.0.0 otherwise it will be exposed on localhost only.

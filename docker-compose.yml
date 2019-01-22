@@ -1,0 +1,25 @@
+# See: https://docs.docker.com/compose/compose-file/
+version: '3'
+services:
+    padre:
+        environment:
+            BOT: "$BOT"
+            BOT_PRODUCTION: "${BOT_PRODUCTION:-0}"
+            DADDY_PASS: "$DADDY_PASS"
+        build:
+            context: "./"
+        image: toolsforhumans/padre
+        restart: on-failure
+        ports:
+            - "2323:2323"
+            - "1080:1080"
+        volumes:
+            - "./conf/:/opt/padre/conf:ro"
+            - "padre_persistent_data:/var/lib/padre/:rw"
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/etc/timezone:/etc/timezone:ro"
+        tmpfs:
+            - /tmp
+            - /var/run/padre/
+volumes:
+    padre_persistent_data: {}
