@@ -9,6 +9,7 @@ import os
 import signal
 import sys
 
+import six
 from six.moves import urllib
 
 import munch
@@ -40,7 +41,11 @@ def load_yaml_or_secret_yaml(path, force_secrets=False):
             ])
         res = pu.run(cmd, stdout=pu.PIPE)
         res.raise_for_status()
-        data = json.loads(res.stdout)
+        # In python 3.x the json.loads requires a unicode type...
+        res_stdout = res.stdout
+        if isinstance(res_stdout, six.binary_type):
+            res_stdout = res_stdout.decode("utf8")
+        data = json.loads(res_stdout)
     else:
         with open(path, "rb") as fh:
             data = yaml.safe_load(fh.read())
