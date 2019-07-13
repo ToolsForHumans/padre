@@ -38,11 +38,11 @@ subprocess32
 websocket-client==0.35.0
 
 # For the backdoor mini-telnet server
-miniboa>=1.0.3
+miniboa==1.0.3
 
 # Client libraries
 tinyjenkins
-slackclient>=1.1.0
+slackclient>=1.1.0,<2
 pygithub
 GitPython
 paho-mqtt
