@@ -1,3 +1,7 @@
+slack:
+    token: xoxb-463301830065-464800823138-Uj1cSkdQHzZXc5m29QAF6sn7
+    base_url: https://toolsforhumans.slack.com/
+
 admin_channel: "test-bot"
 periodic_channel: "test-bot"
 
@@ -35,11 +39,11 @@ snow:
     environment: "test"
     unfurl: false
 
-working_dir: "/tmp/daddy/"
-persistent_working_dir: "/tmp/daddy/"
+working_dir: "/Users/clintb/tmp/daddy/"
+persistent_working_dir: "/Users/clintb/tmp/daddy/"
 playbook_dir: ""
 env_dir: ""
-ansible_config_path: "/tmp/daddy/ansible.cfg"
+ansible_config_path: "/Users/clintb/tmp/daddy/ansible.cfg"
 template_dirs:
     - "templates"
 statics_dir: "static"

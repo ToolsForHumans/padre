@@ -9,7 +9,7 @@ import socket
 import threading
 import traceback
 
-from miniboa import async as async_boa
+from miniboa import mbasync as async_boa
 from miniboa import telnet
 from miniboa import xterm
 

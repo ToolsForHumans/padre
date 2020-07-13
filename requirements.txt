@@ -22,6 +22,7 @@ iso8601
 apscheduler
 psutil
 
+
 # The bot's brain is using this.
 sqlitedict
 
@@ -38,7 +39,7 @@ subprocess32
 websocket-client==0.35.0
 
 # For the backdoor mini-telnet server
-miniboa==1.0.3
+miniboa
 
 # Client libraries
 tinyjenkins
@@ -79,3 +80,6 @@ ansible>=2.4.0.3
 # typically also bring in a version of jinja that will work for it
 # and we can *usually* just piggyback on that).
 jinja2
+
+# handy for human readable dates
+dateparser
